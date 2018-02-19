@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Grid System</title>
+	<link rel="stylesheet" href="bootstrap.css">
+	<style>
+		.pink {
+			border: 1px solid purple;
+			background: pink;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	<!--	<div class="row">
+			<div class="col pink">Colum 1</div>
+			<div class="col-md-auto pink">Colum 2dzfsdfgsdfsdfsdfsdfgskjdbgvkjsbdvkjsnv</div>
+			<div class="w-100"></div>
+			<div class="col pink">Colum 3</div>
+			<div class="col pink">Colum 4</div>
+			<div class="col pink">Colum 5</div>
+		</div> -->
+		<!-- <div class="row">
+			<div class="col col-md-6 pink"> COL 1/4</div>
+			<div class="col col-md-6 pink"> COL 2/4</div>
+			<div class="col col-md-6 pink"> COL 3/4</div>
+			<div class="col col-md-6 pink"> COL 4/4</div>
+		</div> -->
+
+		<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+		<div class="row">
+		  <div class="col-12 col-md-8 pink">.col-12 .col-md-8</div>
+		  <div class="col-6 col-md-4 pink">.col-6 .col-md-4</div>
+		</div>
+
+		<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+		<div class="row">
+		  <div class="col-6 col-md-4 pink">.col-6 .col-md-4</div>
+		  <div class="col-6 col-md-4 pink">.col-6 .col-md-4</div>
+		  <div class="col-6 col-md-4 pink">.col-6 .col-md-4</div>
+		</div>
+
+		<!-- Columns are always 50% wide, on mobile and desktop -->
+		<div class="row">
+		  <div class="col-6 pink">.col-6</div>
+		  <div class="col-6 pink">.col-6</div>
+		</div>
+	</div>
+	
+</body>
+</html>
