@@ -1,0 +1,66 @@
+// Create a Paper.js Path to draw a line into it:
+	/*var path = new Path();
+	// Give the stroke a color
+	path.strokeColor = 'black';
+	var start = new Point(100, 100);
+	// Move to start and draw a line from there
+	path.moveTo(start);
+	// Note the plus operator on Point objects.
+	// PaperScript does that for us, and much more!
+	path.lineTo(start + [ 100, -50 ]);*/
+
+
+	/*var path = new Path.Circle({
+		center: view.center,
+		radius: 30,
+		strokeColor: "blue",
+	});
+
+	function onResize(event) {
+		path.position = view.center;
+	}*/
+
+
+/*var myPath = new Path();
+myPath.strokeColor = "black";
+myPath.add(new Point(0, 0));
+myPath.add(new Point(100, 50));
+
+myPath.insert(1, new Point(40, 490));*/
+
+/*var path = new Path();
+path.strokeColor = "black";
+path.add(new Point(30, 75));
+path.add(new Point(30, 25));
+path.add(new Point(80, 25));
+path.add(new Point(80, 75));
+path.closed = true;
+
+path.fullySelected = true;
+
+var copy = path.clone();
+copy.fullySelected = true;
+copy.position.x += 100;
+copy.smooth();
+
+var myCircle = new Path.Circle(new Point(200, 170), 50);
+myCircle.fillColor = "aqua";*/
+
+/*var rectangle = new Rectangle(new Point(50, 50), new Point(150, 150));
+var path = new Path.Rectangle(rectangle);
+path.fillColor = "aqua";
+
+var decagon = new Path.RegularPolygon(new Point(200, 70), 10, 50);
+decagon.fillColor = "steelblue";
+decagon.selected = true;*/
+/*
+var myCircle = new Path.Circle(new Point(100, 70), 50);
+myCircle.strokeColor = "steelblue";
+myCircle.selected = true;
+myCircle.removeSegment(3);*/
+
+var myPoint = new Point(10, 20);
+var myPath = new Path();
+myPath.add(myPoint);
+
+var mySize = new Size(20, 40);
