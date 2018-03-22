@@ -22,13 +22,14 @@
                 <div class="thumbnail card">
                     <img class="img-thumbnail card-img-top" src="<%= campground.image %>">
                     <div class="card-body">
-                        <p class="card-text  text-center">
+                        <h5 class="card-text  text-center">
                             <%= campground.name %>
+                        </h5>
+                        <p class="text-center">
+                            <a href="/campgrounds/<%= campground._id %>" class="btn btn-info">More Info</a>
                         </p>
                     </div>
-                </div>
-                
-                    
+                </div>    
             </div>
 
         <% }) %>

@@ -1,42 +1,37 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
+const express       = require("express");
+const app           = express();
+const bodyParser    = require("body-parser");
+const mongoose      = require("mongoose");
+
+mongoose.connect("mongodb://localhost/yelp_camp");
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // SCHEMA SETUP
 const campgroundSchema = new mongoose.Schema({
     name: String,
     image: String,
     description: String,
-})
+});
+
+const Campground = mongoose.model("Campground", campgroundSchema)
+
+// Campground.create(
+//     {
+//         name: "Granite Hill",
+//         image: "https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg?auto=compress&cs=tinysrgb&h=350",
+//         description: "this is a huge granite hill, no bathroom, no waters, but lots of great views"
+//     }, function(err, campground){
+//         if(err) {
+//             console.log(err);
+//         } else {
+//             console.log("Newly created campground")
+//         }
+//     });
 
 
-const campgrounds = [
-    {
-        name: "Salmon Creek",
-        image: "https://pixabay.com/get/e136b80728f31c22d2524518b7444795ea76e5d004b0144394f3c679a0e5b1_340.jpg"
-    },
-    {
-        name: "Dark View",
-        image: "https://pixabay.com/get/ec31b90f2af61c22d2524518b7444795ea76e5d004b0144394f3c679a0e5b1_340.jpg"
-    },
-    {
-        name: "Old Styles",
-        image: "https://farm3.staticflickr.com/2222/5763171257_b604848409.jpg"
-    },
-    {
-        name: "Salmon Creek",
-        image: "https://pixabay.com/get/e136b80728f31c22d2524518b7444795ea76e5d004b0144394f3c679a0e5b1_340.jpg"
-    }, {
-        name: "Dark View",
-        image: "https://pixabay.com/get/ec31b90f2af61c22d2524518b7444795ea76e5d004b0144394f3c679a0e5b1_340.jpg"
-    }, {
-        name: "Old Styles",
-        image: "https://farm3.staticflickr.com/2222/5763171257_b604848409.jpg"
-    },
-]
-
-app.use(bodyParser.urlencoded({extended: true}));
-
+// =========== LANDING PAGE =========
 app.get("/", (req, res) => {
     res.render("landing.ejs");
 });
@@ -45,8 +40,17 @@ app.get("/", (req, res) => {
 
 // INDEX ROUTE - SHOW ALL CAMPGROUND
 app.get("/campgrounds", (req, res) => {
-    res.render("campgrounds.ejs", {campgrounds: campgrounds});
-})
+    //GET ALL CAMPGROUNDS FROM DB
+    Campground.find({}, (error, allCampgrounds) => {
+        if(error) {
+            console.log("error");
+        } else {
+            console.log("getting items from DB")
+            res.render("index.ejs", {campgrounds: allCampgrounds})
+        }
+    });
+    // res.render("campgrounds.ejs", {campgrounds: campgrounds});
+});
 
 
 // SHOW FORM TO CREATE A CAMPGROUND
@@ -55,24 +59,35 @@ app.get("/campgrounds/new", (req, res) => {
 });
 
 
-// CREATE ROUTE - SUMBIT A NEW CAMPGROUND
+//CREATE ROUTE - SUMBIT A NEW CAMPGROUND
 app.post("/campgrounds", (req, res) => {
     const name = req.body.name;
     const image = req.body.image;
-    let newCampground = {name: name, image: image};
+    const desc = req.body.description;
+    let newCampground = {name: name, image: image, description: desc};
 
-    campgrounds.push(newCampground);
-    //get data from form and add to campground array
-
-    //redirect back to /campgrounds page
-    res.redirect("/campgrounds");
+    // Create a new campground and add to DB
+    Campground.create(newCampground, (err, newlyCreated) => {
+        if(err) {
+            console.log(err) 
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
 });
+
 
 //SHOW ROUTE
 app.get("/campgrounds/:id", (req, res) => {
     // find the campground with provided ID
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        if(err){
+            console.log(err)
+        } else {
+            res.render("show.ejs", {campground: foundCampground})
+        }
+    });
     // render the page with more info on that ID
-    res.send("This will be the show page");
 });
 
 
@@ -90,4 +105,4 @@ RESTFUL Routes
 */
 
 
-app.listen(3000, () => console.log("YelpGalaxy has started"));
+app.listen(3000, () => console.log("YelpCamp has started"));
