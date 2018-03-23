@@ -1,0 +1,29 @@
+<% include partials/header.ejs %>
+
+<div class="ui container">
+    <h1>Add a new Galaxy</h1>
+
+    <form action="/galaxies" method="POST" class="ui form">
+        <div class="field">
+            <label for="name">Name of the Galaxy</label>
+            <input type="text" name="name" placeholder="Enter Name">
+        </div>
+        <div class="field">
+            <label for="image">Image URL</label>
+            <input type="text" name="image" placeholder="Image URL">
+        </div>
+        <div class="field">
+            <label for="description">Enter a brief description</label>
+            <textarea name="desription" cols="30" rows="10" placeholder="Enter description"></textarea>
+        </div>
+        <div class="field">
+            <label for="">Enter Further Info</label>
+            <input type="text" name="diameter" placeholder="Diameter">
+            <input type="text" name="distance" placeholder="Distance from the Milky Way">
+        </div>
+        <button class="ui button inverted green" type="Submit">Submit</button>
+    </form>
+
+</div>
+
+<% include partials/footer.ejs %>

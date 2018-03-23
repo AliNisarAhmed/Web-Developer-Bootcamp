@@ -1,0 +1,24 @@
+<% include partials/header.ejs %>
+
+<% galaxies.forEach((galaxy) => {  %>
+    <h1>
+        <%= galaxy.title %>
+    </h1>
+    <img src="<%= galaxy.image %>">
+    <p>
+        <%= galaxy.description %>
+    </p>
+    <ul>
+        <h4>
+            Further Information
+        </h4>
+        <li>
+            Diameter: <%= galaxy.meta.diameter %>
+        </li>
+        <li>
+            Distance from the Milky Way: <%= galaxy.meta.distanceFromMilkyWay %>
+        </li>
+    </ul>
+<% }) %>
+
+<% include partials/footer.ejs %>
