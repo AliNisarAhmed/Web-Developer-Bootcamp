@@ -4,6 +4,7 @@ const bodyParser    = require("body-parser");
 const mongoose      = require("mongoose");
 const Campground    = require("./models/campground");
 const seedDB        = require("./seeds");
+const Comment       = require("./models/comment")
 
 seedDB();
 
@@ -29,7 +30,7 @@ app.get("/campgrounds", (req, res) => {
             console.log("error");
         } else {
             console.log("getting items from DB")
-            res.render("index.ejs", {campgrounds: allCampgrounds})
+            res.render("campgrounds/index.ejs", {campgrounds: allCampgrounds})
         }
     });
     // res.render("campgrounds.ejs", {campgrounds: campgrounds});
@@ -38,7 +39,7 @@ app.get("/campgrounds", (req, res) => {
 
 // SHOW FORM TO CREATE A CAMPGROUND
 app.get("/campgrounds/new", (req, res) => {
-    res.render("new.ejs");
+    res.render("campgrounds/new.ejs");
 });
 
 
@@ -68,10 +69,33 @@ app.get("/campgrounds/:id", (req, res) => {
             console.log(err)
         } else {
             console.log(foundCampground);
-            res.render("show.ejs", {campground: foundCampground})
+            res.render("campgrounds/show.ejs", {campground: foundCampground})
         }
     });
     // render the page with more info on that ID
+});
+
+app.post("/campgrounds/:id/comments", (req, res) => {
+    //lookup campgrounds using ID
+    Campground.findById(req.params.id, (err, campground) => {
+        if(err) {
+            console.log(err);
+            res.redirect("/campgrounds");
+        } else {
+            Comment.create(req.body.comment, (err, comment) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    campground.comments.push(comment);
+                    campground.save();
+                    res.redirect(`/campgrounds/${campground._id}`);
+                }
+            });
+        }
+    });
+    //create a new comment
+    // connect new comment to campground
+    // redirect to campground show page
 });
 
 
@@ -87,6 +111,22 @@ RESTFUL Routes
 
 
 */
+
+//========================================================
+// COMMENT ROUTES
+//========================================================
+
+app.get("/campgrounds/:id/comments/new", (req, res) => {
+    // find campground by ID
+    Campground.findById(req.params.id, (err, campground) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("comments/new.ejs", {campground: campground});
+        }
+    });
+});
+
 
 
 app.listen(3000, () => console.log("YelpCamp has started"));
