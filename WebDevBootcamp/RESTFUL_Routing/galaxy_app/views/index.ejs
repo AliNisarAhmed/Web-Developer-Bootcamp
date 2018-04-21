@@ -1,24 +1,26 @@
 <% include partials/header.ejs %>
 
 <% galaxies.forEach((galaxy) => {  %>
-    <h1>
-        <%= galaxy.title %>
-    </h1>
-    <img src="<%= galaxy.image %>">
-    <p>
-        <%= galaxy.description %>
-    </p>
-    <ul>
-        <h4>
-            Further Information
-        </h4>
-        <li>
-            Diameter: <%= galaxy.meta.diameter %>
-        </li>
-        <li>
-            Distance from the Milky Way: <%= galaxy.meta.distanceFromMilkyWay %>
-        </li>
-    </ul>
+<div class="ui container">
+    <div>
+        <h1 class="ui header">
+            <%= galaxy.title %>
+        </h1>
+    </div>
+    <div class="ui container segment">
+        <div class="ui image large rounded middle aligned centered">
+            <img src="<%= galaxy.image %>">
+        </div>
+        <div class="text">
+            <h5>
+                <%= galaxy.description.substring(0, 100) %>...
+            </h5>
+        </div>
+        <button id="readMore" class="ui teal button" href="/galaxies/<%= galaxy._id%>">Read More</button>
+    </div>
+       
+</div>
+   
 <% }) %>
 
 <% include partials/footer.ejs %>
