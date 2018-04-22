@@ -13,9 +13,13 @@
       
      
         <div class="navbar-nav">
-          <a href="/" class="nav-link nav-item">Login</a>
-          <a href="/" class="nav-link nav-item">Logout</a>
-          <a href="/" class="nav-link nav-item">Sign Up</a>
+      <% if(!currentUser){ %>
+        <a href="/login" class="nav-link nav-item">Login</a>
+        <a href="/register" class="nav-link nav-item">Sign Up</a>
+      <% } else { %>
+          <a href="#" class="nav-link nav-item">Logged in as :  <strong><%= currentUser.username %></strong></a> 
+          <a href="/logout" class="nav-link nav-item">Logout</a>
+      <% } %>
         </div>
       
       </div>
