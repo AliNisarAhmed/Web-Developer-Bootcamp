@@ -35,7 +35,7 @@
                 <% campground.comments.forEach((comment) => { %>
                     <ul class="list-group">
                         <li class="list-group-item text-light bg-secondary">
-                            <strong><%= comment.author %></strong>
+                            <strong><%= comment.author.username %></strong>
                             <span class="float-right">10 days ago</span>
                             <p>
                                 <%= comment.text %>

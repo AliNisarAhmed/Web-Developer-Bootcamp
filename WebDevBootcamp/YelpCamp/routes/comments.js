@@ -34,6 +34,14 @@ router.post("/", isLoggedIn, (req, res) => {
                 if (err) {
                     console.log(err);
                 } else {
+                    // add username and id to a comment
+                    // req.user exists because of isLoggedIn middleware
+                    // which ensures that user is logged in b4 commenting
+                    comment.author.id = req.user_id;     
+                    comment.author.username = req.user.username;
+                    //save comment
+                    comment.save();
+                    
                     campground.comments.push(comment);
                     campground.save();
                     res.redirect(`/campgrounds/${campground._id}`);
