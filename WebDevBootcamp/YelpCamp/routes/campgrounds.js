@@ -83,8 +83,18 @@ router.put("/:id", (req, res) => {
         }
     })
     // redirect to show page
-})
+});
 
+// Destroy Campground Route
+router.delete("/:id", (req, res) => {
+    Campground.findByIdAndRemove(req.params.id, (err) => {
+        if(err) {
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds");
+        }
+    })
+})
 
 // MIDDLEWARE - to authenticate whether the user is logged in
 function isLoggedIn(req, res, next) {
