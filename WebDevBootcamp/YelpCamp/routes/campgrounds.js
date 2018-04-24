@@ -19,17 +19,21 @@ router.get("/", (req, res) => {
 
 
 // SHOW FORM TO CREATE A CAMPGROUND
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("campgrounds/new.ejs");
 });
 
 
 //CREATE ROUTE - SUMBIT A NEW CAMPGROUND
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn,(req, res) => {
     const name = req.body.name;
     const image = req.body.image;
     const desc = req.body.description;
-    let newCampground = { name: name, image: image, description: desc };
+    const author = {
+        id: req.user._id,
+        username: req.user.username,
+    }
+    let newCampground = { name: name, image: image, description: desc, author: author};
 
     // Create a new campground and add to DB
     Campground.create(newCampground, (err, newlyCreated) => {
@@ -55,5 +59,14 @@ router.get("/:id", (req, res) => {
     });
     // render the page with more info on that ID
 });
+
+// MIDDLEWARE - to authenticate whether the user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
+
 
 module.exports = router;
