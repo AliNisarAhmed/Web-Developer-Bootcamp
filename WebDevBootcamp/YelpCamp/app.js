@@ -8,6 +8,7 @@ const Comment       = require("./models/comment")
 const passport      = require("passport");
 const LocalStrategy = require("passport-local");
 const User          = require("./models/user");
+const methodOverride = require("method-override");
 
 // requiring Routes
 const commentRoutes     = require("./routes/comments"),
@@ -20,7 +21,8 @@ const commentRoutes     = require("./routes/comments"),
 mongoose.connect("mongodb://localhost/yelp_camp");
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"))
+app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 // PASSPORT CONFIGURATION
 
