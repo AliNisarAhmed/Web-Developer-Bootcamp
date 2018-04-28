@@ -51,6 +51,32 @@ router.post("/", isLoggedIn, (req, res) => {
     });
 });
 
+// Comment Edit Route
+
+router.get("/:comment_id/edit", (req, res) => {
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+        if (err) {
+            res.redirect("back")
+        } else {
+            res.render("comments/edit.ejs", {campground_id: req.params.id, comment: foundComment});
+        }
+        
+    })
+})
+
+
+// Comment Update Route
+
+router.put("/:comment_id", (req, res) => {
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
+        if(err) {
+            res.redirect("back");
+        } else {
+            res.redirect(`/campgrounds/${req.params.id}`);
+        }
+    })
+})
+
 // MIDDLEWARE - to authenticate whether the user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
